@@ -69,7 +69,7 @@ class cas::install (
   }
 
   exec { 'cas_build':
-    command     => "./gradlew clean build -DcasModules=${module_string}",
+    command     => "${cas::build_dir}/overlay/gradlew clean build -DcasModules=${module_string}",
     cwd         => "${cas::build_dir}/overlay",
     user        => root,
     subscribe   => Exec['cas_pull'],
