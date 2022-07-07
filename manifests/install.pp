@@ -63,9 +63,14 @@ class cas::install (
     command   => "/bin/bash ./getcas.sh --url ${cas::initializr_url} --type ${cas::project_type} --casVersion ${cas::cas_version} --modules ${module_string}",
     cwd       => $cas::build_dir,
     user      => root,
-    unless    => "test $(grep -Po '(?<=cas.version=).+' gradle.properties) == ${cas::cas_version}",
+    unless    => "grep version=${cas::cas_version} overlay/gradle.properties",
     path      => '/usr/bin',
     require   => File["${cas::build_dir}"],
+  } ->
+  file_line { 'gradle executable':
+    path => "${cas::build_dir}/overlay/gradle.properties",
+    line => "executable=true",
+    match => '^executable=',
   } ->
   exec { 'cas_build':
     command     => "${cas::build_dir}/overlay/gradlew clean build -DcasModules=${module_string}",
