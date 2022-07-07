@@ -1,5 +1,34 @@
 # command for getting modules with current env: getcas --modules jetty,duo,ldap,hz,bootadmin,core-monitor,support-hazelcast-monitor,support-ldap-monitor,support-metrics,core-monitor,support-saml,support-saml-idp,support-git-service-registry
 # command for building: ./gradlew clean build -DcasModules=jetty,duo,ldap,hz,bootadmin,core-monitor,support-hazelcast-monitor,support-ldap-monitor,support-metrics,support-saml,support-saml-idp 
+# @summary Installs and manages the Apereo CAS service.
+#
+# @example Default installation of 6.5.2 with managed config
+#   include cas
+# @param build_dir
+#   Directory for the build process
+# @param exe_dir
+#   Directory to move the built CAS executable to
+# @param config_dir
+#   Directory to house the CAS config and other files
+# @param initializr_url
+#   URL pointing at instance of CAS Initializr for build
+# @param cas_version
+#   Version of CAS to install
+# @param project_type
+#   Type of CAS project to build
+# @param modules
+#   Dependencies to include in the CAS build
+# @param service_manage
+#   Whether or not to manage the CAS service
+# @param service_name
+#   Name for CAS service
+# @param service_user
+#   Username for CAS service
+# @param service_group
+#   Group for CAS service
+# @param [Hash] config
+#   Config parameters
+#
 class cas (
   Stdlib::Absolutepath $build_dir = '/opt/cas/tmp',
   Stdlib::Absolutepath $exe_dir = '/opt/cas/bin',
