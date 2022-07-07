@@ -63,7 +63,7 @@ class cas::install (
     command   => "/bin/bash ./getcas.sh --url ${cas::initializr_url} --type ${cas::project_type} --casVersion ${cas::cas_version} --modules ${module_string}",
     cwd       => $cas::build_dir,
     user      => root,
-    onlyif    => "test $(grep -Po '(?<=cas.version=).+' gradle.properties) != ${cas::cas_version}",
+    unless    => "test $(grep -Po '(?<=cas.version=).+' gradle.properties) == ${cas::cas_version}",
     path      => '/usr/bin',
     require   => File["${cas::build_dir}"],
   } ->
