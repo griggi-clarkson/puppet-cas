@@ -1,0 +1,6 @@
+# Managed by puppet
+<%- | Hash $config = undef | -%>
+<%# Currently just dump anything given in hiera, in the future should have explicit references as well %>
+<% $config.keys.sort.each |$key| { -%>
+<%= $key %>=<%= $config[$key] %>
+<% } -%>

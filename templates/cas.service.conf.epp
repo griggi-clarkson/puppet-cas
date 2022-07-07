@@ -1,0 +1,12 @@
+# Managed by Puppet
+[Unit]
+Description=<%= $cas::service_name %>
+After=syslog.target
+
+[Service]
+User=<%= $cas::service_user %>
+ExecStart=<%= extlib::path_join([$cas::exe_dir, 'cas.war']) %>
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
