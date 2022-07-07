@@ -66,16 +66,14 @@ class cas::install (
     onlyif    => "test $(grep -Po '(?<=cas.version=).+' gradle.properties) != ${cas::cas_version}",
     path      => '/usr/bin',
     require   => File["${cas::build_dir}"],
-  }
-
+  } ->
   exec { 'cas_build':
     command     => "${cas::build_dir}/overlay/gradlew clean build -DcasModules=${module_string}",
     cwd         => "${cas::build_dir}/overlay",
     user        => root,
     subscribe   => Exec['cas_pull'],
     refreshonly => true,
-  }
-
+  } ->
   file { $executable_path:
     ensure     => present,
     owner      => $cas::service_user,
