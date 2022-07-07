@@ -5,6 +5,7 @@ After=syslog.target
 
 [Service]
 User=<%= $cas::service_user %>
+ExecStart=
 ExecStart=<%= extlib::path_join([$cas::exe_dir, 'cas.war']) %>
 SuccessExitStatus=143
 
