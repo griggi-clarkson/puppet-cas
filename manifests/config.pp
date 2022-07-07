@@ -16,13 +16,15 @@ class cas::config {
     mode      => '0770',
     content   => epp("${module_name}/cas.properties.epp", { 'config' => $merged_config}),
   }
-  file { extlib::path_join([$cas::config_dir, 'log4j2.xml']):
-    ensure    => present,
-    owner     => $cas::service_user,
-    group     => $cas::service_group,
-    mode      => '0770',
-    content   => epp("${module_name}/log4j2.xml.epp", { 'config' => $merged_config_logging}),
+
+  if $cas::logging_manage {
+    file { extlib::path_join([$cas::config_dir, 'log4j2.xml']):
+      ensure    => present,
+      owner     => $cas::service_user,
+      group     => $cas::service_group,
+      mode      => '0770',
+      content   => epp("${module_name}/log4j2.xml.epp", { 'config' => $merged_config_logging}),
+    }
   }
-  
 
 }
